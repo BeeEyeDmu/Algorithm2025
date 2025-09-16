@@ -1,0 +1,22 @@
+﻿<Window x:Class="_01_Euclid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_01_Euclid"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="500">
+  <Grid>
+    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="48,83,0,0" TextWrapping="Wrap" Text="Euclid의 최대공약수 알고리즘" VerticalAlignment="Top"/>
+    <TextBox x:Name="txtN1" HorizontalContentAlignment="Center"
+             HorizontalAlignment="Left" Margin="48,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    <TextBox x:Name="txtN2" HorizontalContentAlignment="Center"
+             HorizontalAlignment="Left" Margin="198,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    <Button x:Name="button" 
+            Click="button1_Click"
+            Content="Find" HorizontalAlignment="Left" Margin="362,149,0,0" VerticalAlignment="Top" Width="72"/>
+    <TextBlock x:Name="txtResult" 
+           HorizontalAlignment="Left" 
+           Margin="48,283,0,0" VerticalAlignment="Top"/>
+  </Grid>
+</Window>
