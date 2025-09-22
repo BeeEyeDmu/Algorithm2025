@@ -48,5 +48,74 @@ namespace _06_PrimMST
         Console.WriteLine();
       }
     }
+
+    // start는 시작하는 정점의 index
+    internal void Prim(int start)
+    {
+      bool[] selected = new bool[V];  // 선택되었는지 표시
+      int[] dist = new int[V];
+
+      // 초기화
+      for(int i=0; i<V; i++)
+      {
+        selected[i] = false;
+        dist[i] = INF;
+      }
+
+      PrintDist(dist);
+      PrintSelected(selected);
+
+      dist[start] = 0;  // 시작점
+
+      for(int i=0; i<V; i++)
+      {
+        int u = GetMinVertex(selected, dist);
+        selected[u] = true;
+
+        MSTWeight += dist[u];
+        Console.WriteLine("{0} ({1}) -> ", 
+          vertex[u], MSTWeight);
+
+        // dist[] 업데이트
+        for (int v = 0; v < V; v++)
+          if (adj[u, v] != INF)
+            if (!selected[v] && adj[u, v] < dist[v])
+              dist[v] = adj[u, v];
+
+        PrintDist(dist);
+        PrintSelected(selected);
+      }
+    }
+
+    private int GetMinVertex(bool[] selected, int[] dist)
+    {
+      int minV = 0;
+      int minDist = INF;
+      for(int v = 0; v<V; v++)
+      {
+        if (!selected[v] && dist[v] < minDist)
+        {
+          minV = v;
+          minDist = dist[v];
+        }
+      }
+      return minV;
+    }
+
+    private void PrintSelected(bool[] selected)
+    {
+      Console.Write("selected[] : \t");
+      for (int i = 0; i < V; i++)
+        Console.Write("{0,8}", selected[i]);
+      Console.WriteLine();
+    }
+
+    private void PrintDist(int[] dist)
+    {
+      Console.Write("Dist[] : \t");
+      for (int i = 0; i < V; i++)
+        Console.Write("{0,8}", dist[i]);
+      Console.WriteLine();
+    }
   }
 }
