@@ -35,6 +35,93 @@ namespace _13_Sorting
       ShellSort();
       PrintArray();
 
+      Console.WriteLine("\n힙정렬");
+      RandomInit();
+      HeapSort();
+      PrintArray();
+
+      Console.WriteLine("\n기수정렬(radix sort)");
+      RandomInit();
+      RadixSort();
+      PrintArray();
+
+    }
+
+    private static void RadixSort()
+    {
+      int max = GetMax();
+
+      // 자리수에 따라 CountingSort를 호출
+      for(int exp = 1; max / exp > 0; exp*=10)
+        CountingSort(a, exp);
+    }
+
+    private static void CountingSort(int[] a, int exp)
+    {
+      int[] count = new int[10];
+      int[] output = new int[N];
+
+      // count[] 계산
+      for (int i = 0; i < N; i++)
+        count[(a[i] / exp) % 10]++;
+
+      // count[] 누적
+      for (int i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+      // a[]을 뒤에서부터 해당 자리수에 저장
+      for(int i=N-1; i >= 0; i--)
+      {
+        int pos = count[(a[i]/exp) % 10] - 1;  // 배열 인덱스
+        output[pos] = a[i];
+        count[(a[i] / exp) % 10]--;
+      }
+
+      // output[]을 a[]로 복사
+      for (int i = 0; i < N; i++)
+        a[i] = output[i];
+    }
+
+    private static int GetMax()
+    {
+      int max = a[0];
+
+      for (int i = 1; i < N; i++)
+        if (a[i] > max)
+          max = a[i];
+
+      return max;
+    }
+
+    private static void HeapSort()
+    {
+      // 힙 자료구조를 만든다
+      for (int i = N / 2 - 1; i >= 0; i--)
+        DownHeap(a, N, i);
+
+      for(int i=N-1; i>=0; i--)
+      {
+        swap(0, i);
+        DownHeap(a, i, 0);
+      }
+    }
+
+    private static void DownHeap(int[] a, int n, int i)
+    {
+      int largest = i;
+      int left = 2 * i + 1;
+      int right = 2 * i + 2;
+
+      if (left < n && a[left] > a[largest])
+        largest = left;
+      if (right < n && a[right] > a[largest])
+        largest = right;
+
+      if(largest != i)
+      {
+        swap(i, largest);
+        DownHeap(a, n, largest);
+      }
     }
 
     private static void ShellSort()
